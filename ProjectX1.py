@@ -30,6 +30,8 @@ enemy_laser = pygame.transform.rotate(enemy_laser, 90)
 
 lives = 3
 points = 0
+se_points = 0
+extra_lives = 0
 sound = pygame.mixer.Sound('data\\laser_explosion.wav')
 sound1 = pygame.mixer.Sound('data\\our_laser_shot.wav')
 sound2 = pygame.mixer.Sound('data\\enemy_shot.wav')
@@ -517,7 +519,8 @@ while runing:
                       "Rules:",
                       "1) Control your ship",
                       "2) Shoot your enemies",
-                      "3) Win the game!"]
+                      "3) Win the game!",
+                      "Warning! The game is very hard!(but possible)"]
         font = pygame.font.Font(None, 30)
         text_coord = 50
         for line in intro_text:
@@ -765,6 +768,10 @@ while runing:
             sound3.play()
             levelingup = True
             r1 = True
+    se_points = points - 50 * extra_lives
+    if se_points >= 50:
+        extra_lives += 1
+        lives += 1
     draw_level_box(level, lives, points)
     if lives == 0 and not gameovering:
         pygame.mixer.music.stop()
